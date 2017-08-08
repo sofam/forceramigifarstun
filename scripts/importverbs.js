@@ -1,5 +1,6 @@
 var request = require('request')
 var cheerio = require('cheerio')
+const fs = require('fs')
 
 var wiktionaryApiUrl = 'https://sv.wiktionary.org/w/api.php'
 // ?action=query&list=categorymembers&
@@ -27,7 +28,7 @@ var getVerb = function (page) {
 
     var findVerb = $("th:contains('Imperativ')")
       .siblings('td')
-      .find('a[class="mw-selflink selflink"]').text()
+      .find('a[class="mw-selflink selflink"]').first().text()
 
     if (findVerb == "") return
 
@@ -38,11 +39,7 @@ var getVerb = function (page) {
 }
 
 var saveVerb = function (verb) {
-
-}
-
-var getNextPage = function (continuetoken) {
-
+  fs.writeFileSync('./verbs.txt',verb + '\n', {flag: 'a'})
 }
 
 var getVerbs = function (continuetoken) {
@@ -75,10 +72,10 @@ var getVerbs = function (continuetoken) {
     }
 
     returnObject.query.categorymembers.forEach(function (val) {
-      setTimeout(getVerb,500,val)
+      setTimeout(getVerb,5000,val)
     })
     if(cmcontinue != '') {
-      setTimeout(getVerbs, 5000, cmcontinue )
+      setTimeout(getVerbs, 15000, cmcontinue )
       
     }
   })
