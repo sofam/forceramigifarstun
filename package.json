@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "node-snowball": "^0.2.0",
     "node-wahlin": "file:///Users/oel/Documents/Development/node-wahlin",
     "request": "^2.81.0"
   }
